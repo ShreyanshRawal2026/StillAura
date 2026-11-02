@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Re — Disconnect &amp; Breathe</title>
+  <link rel="stylesheet" href="reset.css" />
+</head>
+<body>
+  <!-- Fullscreen Monochrome Visual Canvas (Waves, 3D Floating Particles & Central Breathing Sphere) -->
+  <canvas id="reCanvas" aria-hidden="true"></canvas>
+
+  <!-- Subtle Radial Vignette Overlay -->
+  <div class="vignette-layer" aria-hidden="true"></div>
+
+  <!-- 1. START SCREEN -->
+  <section id="startScreen" class="screen-layer active" aria-labelledby="startTitle">
+    <div class="glass-card start-card">
+      <div class="badge-row">
+        <span class="monochrome-badge">5 Minutes</span>
+        <span class="monochrome-badge">Guided Breathing</span>
+        <span class="monochrome-badge">Generative Soundscape</span>
+      </div>
+
+      <h1 id="startTitle" class="re-logo">Re</h1>
+
+      <p class="re-tagline">
+        &ldquo;Take a moment. Disconnect from distractions. Reconnect with yourself.&rdquo;
+      </p>
+
+      <p class="re-description">
+        Step away from endless tabs and notifications. Follow the central sphere as it expands and contracts through a calm 14-second breathing cycle while an evolving monochrome soundscape clears mental fatigue.
+      </p>
+
+      <div class="pre-session-audio">
+        <div class="audio-setting-row">
+          <button id="startSoundToggleBtn" class="icon-pill-btn" type="button" aria-pressed="true">
+            <svg id="startSoundIconOn" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+            <svg id="startSoundIconOff" class="hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+            <span id="startSoundStatusText">Ambient Sound: On</span>
+          </button>
+
+          <div class="volume-control-group">
+            <label for="startVolumeSlider" class="sr-only">Initial Volume</label>
+            <input
+              id="startVolumeSlider"
+              class="monochrome-slider"
+              type="range"
+              min="0"
+              max="100"
+              value="75"
+            />
+            <span id="startVolumeLabel" class="volume-value">75%</span>
+          </div>
+        </div>
+      </div>
+
+      <button id="startRelaxingBtn" class="cta-btn" type="button">
+        <span>Start Relaxing</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- 2. ACTIVE 5-MINUTE SESSION INTERFACE -->
+  <section id="sessionScreen" class="screen-layer" aria-live="polite">
+    <!-- Top Bar: Total Session Countdown + Atmospheric Section Indicator -->
+    <header class="session-top-bar">
+      <div class="session-brand-mini">
+        <span class="brand-dot"></span>
+        <span class="brand-mini-text">Re</span>
+        <span id="soundscapePatternLabel" class="soundscape-label">Atmosphere I &middot; Silver Nocturne</span>
+      </div>
+
+      <div class="session-timer-box" aria-label="Remaining session time">
+        <span id="sessionCountdown" class="session-countdown">05:00</span>
+        <div class="session-progress-track">
+          <div id="sessionProgressBar" class="session-progress-fill"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Center Guided Breathing Overlay (Aligned Over the 3D Canvas Sphere) -->
+    <main class="breathing-center-stage">
+      <div class="sphere-text-overlay">
+        <p id="phaseInstruction" class="phase-title">Breathe in</p>
+        <p id="phaseSupportText" class="phase-subtitle">Let the air fill your lungs gently</p>
+        <div class="phase-meta-row">
+          <span id="phaseCountdown" class="phase-timer-pill">4s</span>
+        </div>
+      </div>
+
+      <!-- Discreet Phase Step Indicators -->
+      <div class="phase-dots-row" role="presentation">
+        <span class="phase-step-pill active" data-phase="inhale">Inhale &middot; 4s</span>
+        <span class="phase-step-pill" data-phase="hold">Hold &middot; 2s</span>
+        <span class="phase-step-pill" data-phase="exhale">Exhale &middot; 6s</span>
+        <span class="phase-step-pill" data-phase="rest">Rest &middot; 2s</span>
+      </div>
+    </main>
+
+    <!-- Bottom Discreet Control Bar -->
+    <footer class="session-bottom-bar">
+      <div class="hud-controls">
+        <!-- Sound On/Off Toggle -->
+        <button id="hudSoundToggleBtn" class="hud-btn" type="button" title="Toggle Sound (M)" aria-label="Toggle Sound">
+          <svg id="hudSoundIconOn" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+          <svg id="hudSoundIconOff" class="hidden" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+
+        <!-- Smooth Volume Slider -->
+        <div class="hud-volume-wrap">
+          <label for="hudVolumeSlider" class="sr-only">Session Volume</label>
+          <input
+            id="hudVolumeSlider"
+            class="monochrome-slider hud-slider"
+            type="range"
+            min="0"
+            max="100"
+            value="75"
+          />
+        </div>
+
+        <span class="hud-divider" aria-hidden="true"></span>
+
+        <!-- Browser Fullscreen Toggle -->
+        <button id="fullscreenBtn" class="hud-btn" type="button" title="Toggle Fullscreen (F)" aria-label="Toggle Fullscreen">
+          <svg id="fullscreenIconEnter" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3"></path>
+            <path d="M21 8V5a2 2 0 0 0-2-2h-3"></path>
+            <path d="M3 16v3a2 2 0 0 0 2 2h3"></path>
+            <path d="M16 21h3a2 2 0 0 0 2-2v-3"></path>
+          </svg>
+          <svg id="fullscreenIconExit" class="hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3v3a2 2 0 0 1-2 2H3"></path>
+            <path d="M21 8h-3a2 2 0 0 1-2-2V3"></path>
+            <path d="M3 16h3a2 2 0 0 1 2 2v3"></path>
+            <path d="M16 21v-3a2 2 0 0 1 2-2h3"></path>
+          </svg>
+          <span class="hud-btn-text">Fullscreen</span>
+        </button>
+
+        <span class="hud-divider" aria-hidden="true"></span>
+
+        <!-- Gentle Exit Button -->
+        <button id="exitSessionBtn" class="hud-btn hud-exit-btn" type="button" title="End Session Gently">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          <span class="hud-btn-text">End Gently</span>
+        </button>
+      </div>
+    </footer>
+  </section>
+
+  <!-- 3. COMPLETION SCREEN -->
+  <section id="completionScreen" class="screen-layer" aria-labelledby="completionTitle">
+    <div class="glass-card completion-card">
+      <div class="completion-emblem" aria-hidden="true">
+        <div class="emblem-inner"></div>
+      </div>
+
+      <span id="completionStatusBadge" class="monochrome-badge">Session Complete</span>
+
+      <h2 id="completionTitle" class="completion-quote">
+        &ldquo;You made space for a pause.&rdquo;
+      </h2>
+
+      <p id="completionSubtext" class="completion-subtext">
+        Carry this calm rhythm with you as you return to your day.
+      </p>
+
+      <div class="completion-actions">
+        <button id="restartSessionBtn" class="cta-btn" type="button">
+          <span>Another 5 Minutes</span>
+        </button>
+        <button id="closeTabBtn" class="secondary-btn" type="button">
+          <span>Return &amp; Close</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script src="reset.js"></script>
+</body>
+</html>

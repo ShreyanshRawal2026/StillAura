@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Re — Monochrome Relaxation & Breathing",
+  "short_name": "Re",
+  "version": "1.0.0",
+  "description": "A premium black-and-white immersive 5-minute relaxation experience with evolving generative ambient sound and guided breathing.",
+  "action": {
+    "default_title": "Open Re Relaxation Experience",
+    "default_popup": "popup.html"
+  },
+  "offline_enabled": true
+}

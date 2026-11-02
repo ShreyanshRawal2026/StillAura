@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Re</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup-container">
+    <div class="orb-preview" aria-hidden="true">
+      <div class="orb-core"></div>
+      <div class="orb-ring"></div>
+    </div>
+
+    <h1 class="brand-title">Re</h1>
+    <p class="brand-subtitle">
+      Five minutes of pure stillness. Step away from the noise and reset your focus.
+    </p>
+
+    <div class="meta-pills">
+      <span class="pill">5 Min Session</span>
+      <span class="pill">Generative Sound</span>
+    </div>
+
+    <button id="openReBtn" class="primary-btn" type="button">
+      <span>Enter Space</span>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </button>
+
+    <label class="auto-open-toggle">
+      <input type="checkbox" id="instantLaunchCheckbox" />
+      <span class="toggle-label">Open tab immediately when clicking icon</span>
+    </label>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
